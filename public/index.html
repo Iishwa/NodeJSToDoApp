@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>ToDo Application</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <h1>My ToDo Application</h1>
+    <p>Manage your tasks easily with MongoDB + Node.js</p>
+  </header>
+
+  <main>
+    <section class="form-section">
+      <h2>Add a New Task</h2>
+      <form action="/add" method="POST">
+        <input type="text" name="task" placeholder="Enter task" required>
+        <button type="submit">Add Task</button>
+      </form>
+    </section>
+
+    <section class="list-section">
+      <h2>Current Tasks</h2>
+      <ul id="taskList"></ul>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2026 Ishwar’s ToDo App | Powered by Node.js & MongoDB</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
