@@ -1,7 +1,6 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const path = require('path');
-const crypto = require('crypto'); // ✅ Added import
 
 const app = express();
 
@@ -12,9 +11,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // Schema & Model
 const TodoSchema = new mongoose.Schema({
-  task: { type: String, required: true },
-  // Optional: add a unique ID using crypto
-  taskId: { type: String, default: () => crypto.randomBytes(8).toString('hex') }
+  task: { type: String, required: true }
 });
 const Todo = mongoose.model('Todo', TodoSchema);
 
