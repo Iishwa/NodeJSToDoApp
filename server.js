@@ -1,6 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const path = require('path');
+const crypto = require('crypto'); // ✅ Added import
 
 const app = express();
 
@@ -10,7 +11,11 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'public')));
 
 // Schema & Model
-const TodoSchema = new mongoose.Schema({ task: { type: String, required: true } });
+const TodoSchema = new mongoose.Schema({
+  task: { type: String, required: true },
+  // Optional: add a unique ID using crypto
+  taskId: { type: String, default: () => crypto.randomBytes(8).toString('hex') }
+});
 const Todo = mongoose.model('Todo', TodoSchema);
 
 // Routes
@@ -103,7 +108,7 @@ app.put('/todos/:id', async (req, res) => {
 // Connect to MongoDB and start server only after connection
 const mongoUrl = process.env.MONGO_URL || 'mongodb://127.0.0.1:27017/todoapp';
 
-mongoose.connect(mongoUrl)
+mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => {
     console.log(`✅ MongoDB connected at ${mongoUrl}`);
     app.listen(3000, () => console.log('🚀 API running on port 3000'));
