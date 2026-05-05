@@ -108,7 +108,7 @@ app.put('/todos/:id', async (req, res) => {
 // Connect to MongoDB and start server only after connection
 const mongoUrl = process.env.MONGO_URL || 'mongodb://127.0.0.1:27017/todoapp';
 
-mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true })
+mongoose.connect(mongoUrl)
   .then(() => {
     console.log(`✅ MongoDB connected at ${mongoUrl}`);
     app.listen(3000, () => console.log('🚀 API running on port 3000'));
