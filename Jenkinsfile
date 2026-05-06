@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        IMAGE_NAME = "todoapi"   // name of your app image
+        IMAGE_NAME = "todoapi"
     }
 
     stages {
