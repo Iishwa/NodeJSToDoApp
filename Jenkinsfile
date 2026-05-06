@@ -22,6 +22,7 @@ pipeline {
                       -Dsonar.sources=. \
                       -Dsonar.host.url=$SONAR_HOST_URL \
                       -Dsonar.login=$SONAR_AUTH_TOKEN
+                      -Dsonar.login=sqa_4025a554e0108b2af65248043fa0e28238b21eaf
                     '''
                 }
             }
