@@ -16,7 +16,13 @@ pipeline {
         stage('SonarQube Analysis') {
             steps {
                 withSonarQubeEnv('SonarQube-Server') {
-                    sh 'mvn sonar:sonar'
+                    sh '''
+                    sonar-scanner \
+                      -Dsonar.projectKey=NodeJSToDoApp \
+                      -Dsonar.sources=. \
+                      -Dsonar.host.url=$SONAR_HOST_URL \
+                      -Dsonar.login=$SONAR_AUTH_TOKEN
+                    '''
                 }
             }
         }
