@@ -62,12 +62,27 @@ pipeline {
     }
 }*/
 
-
+/*
         stage('Gitleaks Scan') {
             steps {
                 sh "gitleaks detect --source . --report-format json --report-path gitleaks-report.json"
             }
+        }*/
+        
+        stage('Gitleaks Scan') {
+    steps {
+        catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
+            sh '''
+                gitleaks detect \
+                --source . \
+                --report-path gitleaks-report.json \
+                --no-banner
+            '''
         }
+        archiveArtifacts artifacts: 'gitleaks-report.json', fingerprint: true
+    }
+}
+
 
         stage('Docker Push') {
             steps {
