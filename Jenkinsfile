@@ -48,16 +48,20 @@ pipeline {
         }
 
         stage('Dependency Check') {
-            steps {
-                sh '''
-                    dependency-check.sh \
-                    --project NodeJSToDoApp \
-                    --scan . \
-                    --format HTML \
-                    --out dependency-check-report.html
-                '''
-            }
+    steps {
+        catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
+            sh '''
+                dependency-check.sh \
+                --project NodeJSToDoApp \
+                --scan . \
+                --format HTML \
+                --out dependency-check-report.html
+            '''
         }
+        archiveArtifacts artifacts: 'dependency-check-report.html', fingerprint: true
+    }
+}
+
 
         stage('Gitleaks Scan') {
             steps {
