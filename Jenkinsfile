@@ -97,14 +97,17 @@ pipeline {
         }
 
         stage('Deploy Locally on EC2') {
-            steps {
-                sh '''
-                    docker stop todoapi || true
-                    docker rm todoapi || true
-                    docker run -d --name todoapi -p 3000:3000 ${IMAGE_NAME}:latest
-                '''
-            }
-        }
+    steps {
+        sh '''
+            docker stop todoapi || true
+            docker rm todoapi || true
+            docker run -d --name todoapi -p 3000:3000 \
+                -e MONGO_URI=mongodb://mongo:27017/todoapp \
+                ${IMAGE_NAME}:latest
+        '''
+    }
+}
+
     }
 
     post {
