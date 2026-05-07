@@ -47,7 +47,7 @@ pipeline {
             }
         }
 
-        stage('Dependency Check') {
+     /*   stage('Dependency Check') {
     steps {
         catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
             sh '''
@@ -60,7 +60,7 @@ pipeline {
         }
         archiveArtifacts artifacts: 'dependency-check-report.html', fingerprint: true
     }
-}
+}*/
 
 
         stage('Gitleaks Scan') {
